@@ -1,0 +1,9 @@
+{% extends "forms/base.html" %}
+{% block content %}
+    <h2>Step 5: Expenditure</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Calculate</button>
+    </form>
+{% endblock %}
