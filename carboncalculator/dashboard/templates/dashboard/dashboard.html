@@ -1,0 +1,17 @@
+{% extends "forms/base.html" %}
+
+{% block content %}
+    <h2>Your Carbon Dashboard</h2>
+    <p>Your total estimated carbon footprint is: <strong>{{ carbon_score }}</strong> kg CO₂e</p>
+
+    <h3>Suggestions to Reduce Carbon Emissions:</h3>
+    <ul>
+        {% for suggestion in suggestions %}
+            <li>{{ suggestion }}</li>
+        {% empty %}
+            <li>No suggestions available. Keep up the good work!</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'personal_info' %}">Recalculate Carbon Footprint</a>  <!-- ✅ Link to form -->
+{% endblock %}
