@@ -1,11 +1,10 @@
 from django.urls import path
-from . import views  # Import views from the same app
+from .views import personal_info_view, travel_view, waste_view, energy_view, expenditure_view
 
 urlpatterns = [
-    path('', views.personal_info_view, name='home'),
-    path("travel_view/",views.travel_view,name='travel'),
-    path("waste_view/",views.waste_view,name='waste'),
-    path("energy_view/",views.energy_view,name='energy'),
-    path("expenditure_view",views.expenditure_view,name='expenditure'),
-    path("result/",views.result_view,name='result'),
+    path('', personal_info_view, name='personal_info'),
+    path('travel/', travel_view, name='travel'),
+    path('waste/', waste_view, name='waste'),
+    path('energy/', energy_view, name='energy'),
+    path('expenditure/', expenditure_view, name='expenditure'),
 ]

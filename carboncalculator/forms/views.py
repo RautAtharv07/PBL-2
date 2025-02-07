@@ -48,7 +48,7 @@ def expenditure_view(request):
         form = ExpenditureForm(request.POST)
         if form.is_valid():
             request.session['expenditure'] = form.cleaned_data
-            return redirect('result')  # ✅ Redirect to result page
+            return redirect('dashboard')  # ✅ Redirect to the dashboard after last step
     else:
         form = ExpenditureForm()
     return render(request, 'forms/expenditure.html', {'form': form})
