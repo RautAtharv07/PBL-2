@@ -3,28 +3,101 @@ from django import forms
 class PersonalInfoForm(forms.Form):
     height = forms.FloatField(label="Height (cm)")
     weight = forms.FloatField(label="Weight (kg)")
-    bmi = forms.FloatField(label="BMI", required=False)
+   # bmi = forms.FloatField(label="BMI", required=False)
     gender = forms.ChoiceField(choices=[('M', 'Male'), ('F', 'Female')])
     diet_type = forms.ChoiceField(choices=[('veg', 'Vegetarian'), ('non-veg', 'Non-Vegetarian'), ('vegan', 'Vegan')])
     diet_frequency = forms.IntegerField(label="Diet Frequency (meals per day)")
 
+
+
 class TravelForm(forms.Form):
-    vehicle_type = forms.ChoiceField(choices=[('car', 'Car'), ('bike', 'Bike'), ('bus', 'Bus')])
-    distance_travelled = forms.FloatField(label="Distance Travelled (km)")
-    fuel_type = forms.ChoiceField(choices=[('petrol', 'Petrol'), ('diesel', 'Diesel'), ('electric', 'Electric')])
-    frequency = forms.IntegerField(label="Frequency (days per week)")
+    VEHICLE_CHOICES = [
+        ('car', 'Car'),
+        ('bike', 'Bike'),
+        ('bus', 'Bus'),
+        ('train', 'Train'),
+        ('cycle', 'Bicycle'),
+    ]
+    days=[
+        ('1','1'),
+        ('2','2'),
+        ('3','3'),
+        ('4','4'),
+        ('5','5'),
+        ('6','6'),
+        ('7','7'),
+    ]
+
+    vehicle_type = forms.ChoiceField(choices=VEHICLE_CHOICES, label="Vehicle Type")
+    distance_travelled = forms.FloatField(label="Distance Travelled (km per week)")
+    fuel_type = forms.ChoiceField(
+        choices=[('petrol', 'Petrol'), ('diesel', 'Diesel'), ('electric', 'Electric')],
+        label="Fuel Type (if applicable)",
+        required=False  # Not all vehicles need fuel
+    )
+    frequency = forms.ChoiceField(choices=days, label="Days of Travel per Week")
+
+
 
 class WasteForm(forms.Form):
-    biodegradable_waste = forms.FloatField(label="Biodegradable Waste (kg)")
-    non_biodegradable_waste = forms.FloatField(label="Non-Biodegradable Waste (kg)")
-    recycle_bag_size = forms.FloatField(label="Recycle Bag Size (kg)")
+    BAG_SIZE_CHOICES = [
+        ('small', 'Small (~2 kg)'),
+        ('large', 'Large (~5 kg)'),
+        ('extra_large', 'Extra Large (~10 kg)'),
+    ]
+
+    biodegradable_waste_bags = forms.ChoiceField(
+        choices=BAG_SIZE_CHOICES, 
+        label="Biodegradable Waste Bag Size",
+        required=True
+    )
+    non_biodegradable_waste_bags = forms.ChoiceField(
+        choices=BAG_SIZE_CHOICES, 
+        label="Non-Biodegradable Waste Bag Size",
+        required=True
+    )
+    recycling_habit = forms.ChoiceField(
+        choices=[('yes', 'Yes'), ('no', 'No')],
+        label="Do you recycle regularly?",
+        required=True
+    )
+
 
 class EnergyForm(forms.Form):
     lpg_usage = forms.FloatField(label="LPG Usage (kg per month)")
     electricity_bill = forms.FloatField(label="Electricity Bill (₹ per month)")
+    internet_data = forms.FloatField(label="Internet Data Usage (GB per month)")
+    
+    
 
 class ExpenditureForm(forms.Form):
-    expenditure = forms.FloatField(label="Monthly Expenditure (₹)")
+    ESSENTIALS_CHOICES = [
+        ('groceries', 'Groceries & Food'),
+        ('healthcare', 'Healthcare & Medicine'),
+        ('education', 'Education & Books'),
+        ('electricity', 'Electricity Bill'),
+        ('water', 'Water Bill'),
+        ('internet', 'Internet & Data Usage'),
+    ]
+    TRANSPORT_CHOICES = [
+        ('public_transport', 'Public Transport'),
+        ('ride_sharing', 'Ride Sharing (Uber, Ola, etc.)'),
+        ('flights', 'Flights (Domestic & International)'),
+        ('tourism', 'Hotel Stays & Tourism'),
+    ]
+    LIFESTYLE_CHOICES = [
+        ('clothing', 'Clothing & Fashion'),
+        ('electronics', 'Electronics & Gadgets'),
+        ('furniture', 'Furniture & Appliances'),
+        ('entertainment', 'Entertainment & Leisure'),
+        ('luxury_goods', 'Luxury Goods & Jewelry'),
+    ]
+
+    essentials = forms.FloatField(label="Essentials & Daily Needs (₹)", required=True)
+    transport = forms.FloatField(label="Transportation & Travel (₹)", required=True)
+    lifestyle = forms.FloatField(label="Lifestyle & Luxury (₹)", required=True)
+    high_impact = forms.FloatField(label="High-Impact Purchases (₹)", required=True)
+
 
 def calculate_carbon_footprint(session_data):
     carbon_score = 0

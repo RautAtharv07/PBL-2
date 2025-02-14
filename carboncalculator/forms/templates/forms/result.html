@@ -1,8 +1,9 @@
 {% extends "forms/base.html" %}
 
 {% block content %}
-    <h2>Your Carbon Footprint Score</h2>
-    <p>Your total estimated carbon footprint is: <strong>{{ carbon_score }}</strong> kg CO₂e</p>
+<p>Total Carbon Footprint: {{ results.total_emissions }} kg CO2/year</p>
+<p>Dietary Emissions: {{ results.dietary_emissions }} kg CO2/year ({{ results.breakdown_percentage.dietary }}%)</p>
+<!-- etc. for other categories -->
 
     
 {% endblock %}

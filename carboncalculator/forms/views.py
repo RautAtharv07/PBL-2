@@ -1,3 +1,4 @@
+#view.py
 from django.shortcuts import render, redirect
 from .forms import PersonalInfoForm, TravelForm, WasteForm, EnergyForm, ExpenditureForm
 from .calculations import calculate_carbon_footprint
@@ -54,8 +55,9 @@ def expenditure_view(request):
     return render(request, 'forms/expenditure.html', {'form': form})
 
 def result_view(request):
-    """ Display the final carbon footprint result """
-    carbon_score = calculate_carbon_footprint(request.session)  # ✅ Compute the result
-    return render(request, 'forms/result.html', {'carbon_score': carbon_score})  # ✅ Pass to template
+    """Display the final carbon footprint result"""
+    calculator = calculate_carbon_footprint()
+    results = calculator.calculate_carbon_footprint(request.session)
+    return render(request, 'forms/result.html', {'results': results})
 
 
